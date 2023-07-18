@@ -1,0 +1,5 @@
+INFO:
+PLACE THE HDF5 FILES CONTAININIG THE DATASETS HERE.
+BY DEFAULT THE DATASETS ARE NAMED AS FOLLOWING:
+- Dose Predictor Dataset: 'dose_dataset.h5'
+- Segmentation Dataset: 'segment_dataset.h5'
