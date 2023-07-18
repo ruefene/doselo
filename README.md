@@ -47,7 +47,7 @@ Using the proposed method with your own data requires the following steps:
 If you use our code for your own work, please cite our paper:
 ```
 @InProceedings{Ruefenacht2023a,
-  author    = {Rüfenacht, Elias and Kamath, Amith and Poel, Robert and Ermis, Ekin and Scheib, Stefan and Fix, Michael K. and Reyes, Mauricio},
+  author    = {Rüfenacht, Elias and Poel, Robert and Kamath, Amith and Ermis, Ekin and Scheib, Stefan and Fix, Michael K. and Reyes, Mauricio},
   booktitle = {Medical Image Computing and Computer Assisted Intervention – MICCAI 2023},
   title     = {{Dose Guidance for Radiotherapy-oriented Deep Learning Segmentation}},
   year      = {2023},
