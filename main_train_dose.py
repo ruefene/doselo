@@ -54,10 +54,8 @@ def main(
         list_ch_a=[-1, 16, 32, 64, 128, 256],
         list_ch_b=[-1, 32, 64, 128, 256, 512],
     )
-    trainer.set_optimizer(optimizer_type="Adam",
-                          args={"lr": learning_rate, "weight_decay": weight_decay})
-    trainer.set_lr_scheduler(lr_scheduler_type="cosine",
-                             args={"T_max": max_iter, "eta_min": 1e-7, "last_epoch": -1})
+    trainer.set_optimizer(optimizer_type="Adam", lr=learning_rate, weight_decay=weight_decay)
+    trainer.set_lr_scheduler(lr_scheduler_type="cosine", T_max=max_iter, eta_min=1e-7, last_epoch=-1)
     trainer.set_gpu_device([0])
 
     # initialize wandb (if needed)
@@ -92,8 +90,8 @@ if __name__ == '__main__':
                         help="dataset file (default: ./data/dataset/dose_dataset.h5)")
     parser.add_argument("--split_config_path", type=str, default="./data/split_config_dose/split_config_fold_0.json",
                         help="split config file path (default: ./data/split_config_dose/split_config_fold_0.json)")
-    parser.add_argument("--batch_size", type=int, default=2, help="batch size for training (default: 16)")
-    parser.add_argument("--max_iter", type=int, default=1000, help="training iterations (default: 80000)")
+    parser.add_argument("--batch_size", type=int, default=16, help="batch size for training (default: 16)")
+    parser.add_argument("--max_iter", type=int, default=80000, help="training iterations (default: 80000)")
     parser.add_argument("--learning_rate", type=float, default=1e-4, help="learning rate (default: 1e-4)")
     parser.add_argument("--weight_decay", type=float, default=3e-5, help="weight decay (default: 3e-5)")
     parser.add_argument("--use_wandb", type=bool, default=False, help="use wandb (default: False)")

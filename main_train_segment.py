@@ -62,11 +62,9 @@ def main(
         list_ch_a=[-1, 16, 32, 64, 128, 256],
         list_ch_b=[-1, 32, 64, 128, 256, 512],
     )
-    trainer.set_optimizer("Adam",
-                          args={"lr": learning_rate, "weight_decay": weight_decay})
+    trainer.set_optimizer("Adam", lr=learning_rate, weight_decay=weight_decay)
 
-    trainer.set_lr_scheduler(lr_scheduler_type="cosine",
-                             args={"T_max": args.max_iter, "eta_min": 1e-8, "last_epoch": -1})
+    trainer.set_lr_scheduler(lr_scheduler_type="cosine", T_max=args.max_iter, eta_min=1e-8, last_epoch=-1)
     trainer.set_gpu_device([0])
 
     # initialize the loss function
@@ -122,7 +120,6 @@ def main(
         wb_logger.define_metric('performance_index', step_metric='epoch')
         wb_logger.define_metric('val_loss', step_metric='epoch')
 
-
     # run the training
     trainer.run()
 
@@ -131,21 +128,26 @@ def main(
         trainer.setting.wandb_session.finish()
 
 
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--loss_configuration", type=str, default="DOSELO",
                         help="the loss configuration (options: DOSELO (default), baseline)")
-    parser.add_argument("--lmbda", type=float, default=0, help="lambda for dose loss (default: None)")
-    parser.add_argument("--dose_prediction_model_path", type=str, help="the relative path to the dose prediction model",
-                        default="./data/runs/dose_20230718-112501/best_val_evaluation_index.pkl")
+    parser.add_argument("--lmbda", type=float, default=1, help="lambda for dose loss (default: 1)")
+    # parser.add_argument("--dose_prediction_model_path", type=str,
+    #                     default="./data/runs/dose_20230718-112501/best_val_evaluation_index.pkl",
+    #                     help="the relative path to the dose prediction model")
+    parser.add_argument("--dose_prediction_model_path", type=str,
+                        default="./data/runs/dose_20230809-134235/best_val_evaluation_index.pth.tar",
+                        help="the relative path to the dose prediction model")
     parser.add_argument("--dataset_path", type=str, default="./data/dataset/segment_dataset.h5",
                         help="dataset file (default: ./data/dataset/segment_dataset.h5)")
-    parser.add_argument("--split_config_path", type=str, default="./data/split_config_segment/split_config_fold_0.json",
+    parser.add_argument("--split_config_path", type=str,
+                        default="./data/split_config_segment/split_config_fold_0.json",
                         help="split config file path (default: ./data/split_config_segment/split_config_fold_0.json)")
-    parser.add_argument("--batch_size", type=int, default=2, help="batch size for training (default: 16)")
-    parser.add_argument("--max_iter", type=int, default=1000, help="training iterations (default: 200000)")
+    parser.add_argument("--batch_size", type=int, default=16,
+                        help="batch size for training (default: 16)")
+    parser.add_argument("--max_iter", type=int, default=200000,
+                        help="training iterations (default: 200000)")
     parser.add_argument("--learning_rate", type=float, default=1e-4, help="learning rate (default: 1e-4)")
     parser.add_argument("--weight_decay", type=float, default=1e-4, help="weight decay (default: 1e-4)")
     parser.add_argument("--use_wandb", type=bool, default=False, help="use wandb (default: False)")

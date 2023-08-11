@@ -167,7 +167,6 @@ class DualTester(Tester):
                 output_path = os.path.join(self.settings.output_dir, f'{sample["subject"]}_{category}_gt.nii.gz')
                 sitk.WriteImage(image, output_path)
 
-
     def save_image_from_dataset(
             self,
             subject_indices: t.Tuple[int, ...],
@@ -236,9 +235,6 @@ class DualTester(Tester):
         with torch.no_grad():
             for i, batch in enumerate(self.settings.test_loader):
                 print(f'Processing batch {i + 1}/{len(self.settings.test_loader)} of subject {batch["subject"][0]}...')
-
-                if 'ISAS_GBM_087' not in batch.get('subject'):
-                    continue
 
                 # get the input and target
                 input_ = torch.from_numpy(np.stack(batch['images'], axis=0)).to(self.settings.device, dtype=torch.float)

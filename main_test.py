@@ -87,7 +87,10 @@ if __name__ == '__main__':
     parser.add_argument('--split_config_path', type=str, help='Path to the split config file.',
                         default='./data/split_config_segment/split_config_fold_0.json')
     parser.add_argument('--output_dir', type=str, help='Path to the output directory.', default='./results/')
-    parser.add_argument('--batch_size', type=int, help='Batch size (default: 2).', default=2)
+    parser.add_argument('--batch_size', type=int, help='Batch size (default: 16).', default=16)
     parser.add_argument('--use_tta', type=bool, help='Use test time augmentation (default: False).', default=False)
 
     args = parser.parse_args()
+
+    main(args.segmentation_model_path, args.dose_model_path, args.dataset_path, args.split_config_path, args.output_dir,
+         args.batch_size, args.use_tta)
